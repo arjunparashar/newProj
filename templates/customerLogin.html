@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login - Customers
+{% endblock %}
+
+{% block content %}
+<h1 class="h1 text-center text-white mt-3">Household Services</h1>
+<form method="post" class="text-center py-4 mx-5 mt-5 text-white" action="">
+    <h1 class="h3 text-center text-white">Customer Login</h1>
+    <label for="username" class="form-label text-center mt-3    " >Username
+    <input type="text" name="username" id="username" class=" mt-2 form-control" required/>
+        </label>
+    <br>
+    <label for="password"  class="form-label  text-center mt-1">Password
+    <input type="password" name="password" id="password"  class=" mt-2 form-control" required/>
+        </label>
+    <input type="submit" value="Login" class="btn btn-success mt-3">
+</form>
+{% endblock %}
+
+{% block style %}
+<style>
+    form{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    }
+</style>
+{% endblock %}
