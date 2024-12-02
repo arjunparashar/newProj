@@ -5,38 +5,43 @@ Register - Household Services
 {% endblock %}
 
 {% block content %}
-<h1 class="h1 text-center text-white mt-3" xmlns="http://www.w3.org/1999/html">Household Services</h1>
-<form method="post" class="text-center py-4 mx-5 mt-5 text-white">
-    <h1 class="h3 text-center text-white">Register Customer</h1>
-    <div class="row col-lg-12 pt-5">
-        <div class="col-lg-4">
-            <label for="username" class="form-label text-center mt-3" >Username
-                <input type="text" name="username" id="username" class="mt-2 form-control" required/>
-            </label>
-        </div>
-        <div class="col-lg-4">
-            <label for="password"  class="form-label  text-center mt-3">Password
-                <input type="password" name="password" id="password"  class="mt-2 form-control" required/>
-            </label>
-        </div>
 
-        <div class="col-lg-4">
-            <label for="name" class="form-label text-center mt-3" >Name
-                <input type="text" name="name" id="name" class="mt-2 form-control" required/>
-            </label>
-        </div>
-        <div class="col-lg-8">
-            <label for="address" class="form-label text-center mt-3" >Address</label>
-                <textarea type="text" name="address" id="address" class="form-control" rows="1" required/></textarea>
+<form method="post" class="text-center py-4 mx-5 mt-3 text-white">
+    <h1 class="h3 text-center text-white">Customer Signup</h1>
 
-        </div>
-        <div class="col-lg-4">
-                <label for="pincode" class="form-label text-center mt-3" >Pincode
-                <input type="text" name="pincode" id="pincode" class="mt-2 form-control" required/>
-            </label>
+    <div class="row col-lg-12 pt-5 mx-auto">
+        <div class="col-lg-6 mx-auto">
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Username</span>
+              <input type="text" name="username" id="username" class="form-control" required/>
+            </div>
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Password</span>
+              <input type="password" name="password" id="password"  class="form-control" required/>
+            </div>
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Name</span>
+              <input type="text" name="username" id="name" class="form-control" required/>
+            </div>
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Address</span>
+              <textarea type="text" rows="4" name="address" id="address" class="form-control" rows="1" required/></textarea>
+            </div>
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Pincode</span>
+              <input type="text" name="pincode" id="pincode" class="form-control" required/>
+            </div>
         </div>
     </div>
-    <input type="submit" value="Login" class="btn btn-success mt-3">
+    <input type="submit" value="Register" class="btn btn-success mt-3">
+<div class="col-lg-12 mt-3">
+        <a class="btn btn-warning float-mid"  href="{{url_for('login')}}">
+            Login
+        </a>
+    </div>
 </form>
 {% endblock %}
 

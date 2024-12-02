@@ -5,50 +5,51 @@ Register - Household Services
 {% endblock %}
 
 {% block content %}
-<h1 class="h1 text-center text-white mt-3" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Household Services</h1>
 <form method="post" class="text-center py-4 mx-5 mt-5 text-white">
-    <h1 class="h3 text-center text-white">Register Professional</h1>
+    <h1 class="h1 text-center text-white">Service Professional Signup</h1>
     <div class="row col-lg-12 pt-5">
-        <div class="col-lg-4">
-            <label for="username" class="form-label text-center mt-3" >Username
-                <input type="text" name="username" id="username" class="mt-2 form-control" required/>
-            </label>
-        </div>
-        <div class="col-lg-4">
-            <label for="password"  class="form-label  text-center mt-3">Password
-                <input type="password" name="password" id="password"  class="mt-2 form-control" required/>
-            </label>
-        </div>
+        <div class="col-lg-6 mx-auto">
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Username</span>
+              <input type="text" name="username" id="username" class="form-control" required/>
+            </div>
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Password</span>
+              <input type="password" name="password" id="password"  class="form-control" required/>
+            </div>
 
-        <div class="col-lg-4">
-            <label for="name" class="form-label text-center mt-3" >Name
-                <input type="text" name="name" id="name" class="mt-2 form-control" required/>
-            </label>
-        </div>
-        <div class="col-lg-3">
-            <label for="servicetype" class="form-label text-center mt-3" >Service Type
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Name</span>
+              <input type="text" name="username" id="name" class="form-control" required/>
+            </div>
 
-            </label>
-            <select class="mx-5 form-select" name="servicetype" id="servicetype">
-              <option selected>Select</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-            </select>
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Service Type</span>
+                    <select class="form-select" name="servicetype" id="servicetype">
+                      <option selected>Select</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                    </select>
+            </div>
 
-        </div>
-        <div class="col-lg-4">
-                <label for="experience" class="form-label text-center mt-3" >Experience
-                <input type="text" name="experience" id="experience" class="mt-2 form-control" required/>
-            </label>
-        </div>
-        <div class="col-lg-4">
-                <label for="description" class="form-label text-center mt-3" >Description
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Experience</span>
+              <input type="text" name="experience" id="experience" class="form-control" required/>
+            </div>
 
-            </label>
-            <textarea type="text" name="description" id="description" class="mt-2 form-control" required/></textarea>
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Description</span>
+              <textarea type="text" name="description" id="description" class="form-control" required/></textarea>
+            </div>
+
         </div>
     </div>
-    <input type="submit" value="Login" class="btn btn-success mt-3">
+    <input type="submit" value="Register" class="btn btn-success mt-3">
+    <div class="col-lg-12 mt-3">
+        <a class="btn btn-warning float-mid"  href="{{url_for('login')}}">
+            Login
+        </a>
+    </div>
 </form>
 {% endblock %}
 

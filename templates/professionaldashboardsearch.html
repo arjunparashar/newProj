@@ -1,0 +1,78 @@
+{% extends 'probase.html' %}
+
+{% block title %}
+Login- Household Services
+{% endblock %}
+
+{% block content %}
+<div class="text-light">
+    <h1>Welcome to Professional Dashboard</h1>
+<!--    <span>Hello {{professional.name}}</span>-->
+</div>
+
+<div class="row py-3">
+        <div class="col-lg-4 text-right">
+        </div>
+        <div class="col-lg-2">
+            <label for="select" class="text-white mb-3">Search By</label>
+        </div>
+        <div class="col-lg-3">
+            <select class="form-select" id="select">
+                <option value="1">Date</option>
+                <option value="2">Location</option>
+                <option value="3">Pin Code</option>
+            </select>
+        </div>
+        <div class="col-lg-3">
+            <input type="text" class="rounded form-control" placeholder="Search Text">
+        </div>
+
+    </div>
+
+<div>
+    <h1 class="text-white mb-3">Today Services</h1>
+    <table class="table table-bordered table-dark">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Contact Phone</th>
+            <th scope="col">Location (with Pin Code)</th>
+            <th scope="col">Date</th>
+            <th scope="col">Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">
+                1
+            </th>
+            <td>
+                ABC Service
+            </td>
+
+            <td>
+                123
+            </td>
+            <td>
+                123
+            </td>
+
+            <td>
+                123
+            </td>
+            <td>
+                123
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock %}

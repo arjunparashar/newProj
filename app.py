@@ -8,25 +8,18 @@ from models import db, Customer, Professional, Service, ServiceRequest
 #Instance relative config is very important
 app = Flask(__name__, instance_relative_config=True)
 
+adminuser='admin'
+adminpass='admin'
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 
 #Why not instantiate app with db why not the other way around?
 db.init_app(app)
 
+
 #This creates the tables in the db
 with app.app_context():
     db.create_all()
-    cusAdmin = Customer.query.filter_by(username='admin').first()
-    if not cusAdmin:
-        cusAdmin = Customer(username='admin', passhash=generate_password_hash('admin'), name='admin',address='Sample Address',pincode='SAMPLEPIN')
-        db.session.add(cusAdmin)
-        db.session.commit()
-
-    proAdmin = Professional.query.filter_by(username='admin').first()
-    if not proAdmin:
-        proAdmin = Professional(username='admin', passhash= generate_password_hash('admin'), name='admin',servicetype='SAMPLE',experience=999,description='SAMPLEDESC')
-        db.session.add(proAdmin)
-        db.session.commit()
 
 @app.route('/')
 def index():
@@ -45,59 +38,53 @@ def professionaldashboard():
     if 'user_id' not in session:
         flash('Please Login to Continue')
         return redirect(url_for('login'))
+    return render_template('professionaldashboard.html',professional=Professional.query.get(session['user_id']))
 
-    return render_template('customerdashboard.html',professional=Professional.query.get(session['user_id']))
+@app.route('/professionaldashboard/search')
+def professionaldashboard_search():
+    if 'user_id' not in session:
+        flash('Please Login to Continue')
+        return redirect(url_for('login'))
+    return render_template('professionaldashboardsearch.html',professional=Professional.query.get(session['user_id']))
+
+@app.route('/professional/summary')
+def pro_summary():
+    return render_template('professionalsummary.html')
 
 @app.route('/login')
 def login():
     return render_template('login.html')
 
-@app.route('/custlogin')
-def customerlogin():
-    return render_template('customerLogin.html')
 
-@app.route('/prologin')
-def professionallogin():
-    return render_template('professionalLogin.html')
-
-
-@app.route('/custlogin',methods=['POST'])
-def custlogin_process():
+@app.route('/login',methods=['POST'])
+def login_process():
     username = request.form.get('username')
     password = request.form.get('password')
     if username=='' or password == '':
         flash('Username or Password can not be Empty')
         return redirect(url_for('custlogin_process'))
+    if username==adminuser or password == adminpass:
+        print('admin login')
+        return redirect(url_for('admin_dashboard'))
     print('not null')
     customer=Customer.query.filter_by(username=username).first()
     if not customer:
-        flash('Please check your Credentials, No Customer Found with this ID')
-        return redirect(url_for('customerlogin'))
-    print('Unique Customer')
+        professional=Professional.query.filter_by(username=username).first()
+        if not professional:
+            flash('No Account Found, Please Register')
+            return redirect(url_for('login'))
+        if not professional.check_password(password):
+            flash('Incorrect Password')
+            return redirect(url_for('login'))
+        session['user_id'] = professional.id
+        return redirect(url_for('professionaldashboard'))
     if not customer.check_password(password):
         flash('Incorrect Password')
-        return redirect(url_for('customerlogin'))
+        return redirect(url_for('login'))
     print('Correct Password')
     session['user_id']=customer.id
     return redirect(url_for('customerdashboard'))
 
-
-@app.route('/prologin',methods=['POST'])
-def prologin_process():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    if username=='' or password == '':
-        flash('Username or Password can not be Empty')
-        return redirect(url_for('professionallogin'))
-    professional=Professional.query.filter_by(username=username).first
-    if not professional:
-        flash('Please check your Credentials, No Professional Found with this ID')
-        return redirect(url_for('professionallogin'))
-    if not professional.check_password(password):
-        flash('Incorrect Password')
-        return redirect(url_for('professionallogin'))
-    session['user_id'] = professional.id
-    return redirect(url_for('professionaldashboard'))
 
 @app.route('/registerCustomer')
 def register_customer():
@@ -116,7 +103,7 @@ def register_customer_post():
     if Customer.query.filter_by(username=username).first():
         flash('User with this username Already Exists, Please Choose another Username')
         return redirect(url_for('register_customer'))
-    customer=Customer(username=username,password=password,name=name,address=address,pincode=pincode)
+    customer=Customer(username=username,passhash=generate_password_hash(password),name=name,address=address,pincode=pincode)
     db.session.add(customer)
     db.session.commit()
     flash('Customer Successfully Registered.')
@@ -140,17 +127,28 @@ def register_professional_post():
     if Professional.query.filter_by(username=username).first():
         flash('User with this username Already Exists, Please Choose another Username')
         return redirect(url_for('register_professional'))
-    professional = Professional(username=username, password=password, name=name, servicetype=servicetype, description=description,experience=experience)
+    professional = Professional(username=username, passhash=generate_password_hash(password), name=name, servicetype=servicetype, description=description,experience=experience)
     db.session.add(professional)
     db.session.commit()
     flash('Professional Successfully Registered.')
-    return redirect(url_for('professionallogin'))
+    return redirect(url_for('login'))
 
 
     @app.route('/logout')
     def logout():
         session.pop('user_id',None)
 
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    return render_template('admindashboard.html')
+
+@app.route('/admin/dashboard/search')
+def admin_dashboard_search():
+    return render_template('admindashboardsearch.html')
+
+@app.route('/admin/summary')
+def admin_summary():
+    return render_template('adminsummary.html')
 
 if __name__ == '__main__':
 

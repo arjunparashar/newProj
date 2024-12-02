@@ -7,15 +7,30 @@ Login- Household Services
 {% block content %}
 <h1 class="h1 text-center text-white mt-3">HouseHold Services</h1>
 <div class="row mx-auto" >
-    <div class="col-lg-6">
-        <a class="btn btn-primary" href="{{url_for('customerlogin')}}">
-            Customer
-        </a>
-
-        <a class="btn btn-primary"  href="{{url_for('professionallogin')}}">
-            Professional
+        <div class="col-lg-12">
+        <a class="btn btn-success float-end"  href="{{url_for('register_professional')}}">
+            Register as Professional
         </a>
     </div>
+    <form method="post" class="text-center py-4 mx-5 mt-5 text-white" action="/login">
+    <h1 class="h3 text-center text-white">Customer Login</h1>
+    <label for="username" class="form-label text-center mt-3    " >Registered Email Id
+    <input type="text" name="username" id="username" class=" mt-2 form-control" required/>
+        </label>
+    <br>
+    <label for="password"  class="form-label  text-center mt-1">Password
+    <input type="password" name="password" id="password"  class=" mt-2 form-control" required/>
+        </label>
+        <br>
+    <input type="submit" value="Login" class="btn btn-primary mt-3">
+        <br>
+        <div class="col-lg-12 mt-3">
+        <a class="btn btn-warning float-mid"  href="{{url_for('register_customer')}}">
+            Create Account
+        </a>
+    </div>
+</form>
+
 </div>
 
 {% endblock %}
